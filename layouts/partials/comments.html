@@ -29,18 +29,23 @@
   </form>
   
   <div id="comments" class="comments-list">
-    {{ $comments := getJSON "https://api.github.com/repos/codeedup/blog_page/contents/data/comments/" .File.Path }}
-    {{ if $comments }}
-      {{ range $comments }}
-        <div class="comment">
-          <div class="comment-header">
-            <strong>{{ .name }}</strong>
-            <span class="comment-date">{{ .date | dateFormat "January 2, 2006" }}</span>
+    {{ $comments := resources.GetRemote "https://api.github.com/repos/codeedup/blog_page/contents/data/comments/" }}
+    {{ with $comments }}
+      {{ $commentsData := . | transform.Unmarshal }}
+      {{ if $commentsData }}
+        {{ range $commentsData }}
+          <div class="comment">
+            <div class="comment-header">
+              <strong>{{ .name }}</strong>
+              <span class="comment-date">{{ .date | dateFormat "January 2, 2006" }}</span>
+            </div>
+            <div class="comment-content">
+              {{ .comment | markdownify }}
+            </div>
           </div>
-          <div class="comment-content">
-            {{ .comment | markdownify }}
-          </div>
-        </div>
+        {{ end }}
+      {{ else }}
+        <p>No comments yet. Be the first to comment!</p>
       {{ end }}
     {{ else }}
       <p>No comments yet. Be the first to comment!</p>
