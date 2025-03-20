@@ -1,21 +1,122 @@
-<form id="comment-form" action="https://staticman.net/your-username/your-repo/branch/comments" method="POST">
-    <input type="hidden" name="options[redirect]" value="{{ .Permalink }}#comments">
-    <input type="hidden" name="fields[postSlug]" value="{{ .File.Path }}">
-    
-    <label for="name">Name:</label>
-    <input type="text" name="fields[name]" id="name" required>
+<section class="comments-section">
+  <h3>Comments</h3>
   
-    <label for="comment">Comment:</label>
-    <textarea name="fields[comment]" id="comment" required></textarea>
+  <form id="comment-form" action="https://api.staticman.net/v3/entry/github/codeedup/blog_page/main/comments" method="POST">
+    <input type="hidden" name="options[redirect]" value="{{ .Permalink }}#comments">
+    <input type="hidden" name="options[slug]" value="{{ .File.Path }}">
+    <input type="hidden" name="fields[postSlug]" value="{{ .File.Path }}">
+    <input type="hidden" name="options[origin]" value="{{ .Site.BaseURL }}">
+    
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" name="fields[name]" id="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" name="fields[email]" id="email" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="comment">Comment:</label>
+      <textarea name="fields[comment]" id="comment" required></textarea>
+    </div>
     
     <!-- Honeypot field for spam protection -->
     <input type="text" name="fields[website]" id="website" style="display:none">
     
-    <button type="submit">Submit Comment</button>
+    <button type="submit" class="submit-button">Submit Comment</button>
   </form>
   
-  <div id="comments">
-    <!-- Comments will appear here once submitted -->
-    <!-- Disabled for now: {{ if .Site.Data.comments }}{{ end }} -->
+  <div id="comments" class="comments-list">
+    {{ $comments := getJSON "https://api.github.com/repos/codeedup/blog_page/contents/data/comments/" .File.Path }}
+    {{ if $comments }}
+      {{ range $comments }}
+        <div class="comment">
+          <div class="comment-header">
+            <strong>{{ .name }}</strong>
+            <span class="comment-date">{{ .date | dateFormat "January 2, 2006" }}</span>
+          </div>
+          <div class="comment-content">
+            {{ .comment | markdownify }}
+          </div>
+        </div>
+      {{ end }}
+    {{ else }}
+      <p>No comments yet. Be the first to comment!</p>
+    {{ end }}
   </div>
+</section>
+
+<style>
+.comments-section {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 4px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.submit-button {
+  background: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background: #0056b3;
+}
+
+.comments-list {
+  margin-top: 2rem;
+}
+
+.comment {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.comment-date {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.comment-content {
+  line-height: 1.5;
+}
+</style>
   
