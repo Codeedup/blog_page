@@ -1,0 +1,23 @@
+{{ define "main" }}
+<article class="blog-post">
+  <header>
+    <h1>{{ .Title }}</h1>
+    {{ if .Params.featured_image }}
+    <img src="{{ .Params.featured_image }}" alt="{{ .Title }} featured image">
+    {{ end }}
+  </header>
+  <section class="post-content">
+    {{ .Content }}
+  </section>
+  <section class="social-sharing">
+    <h3>Share this post:</h3>
+    <a href="https://twitter.com/intent/tweet?text={{ .Title }}&url={{ .Permalink }}" target="_blank">Twitter</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink }}" target="_blank">Facebook</a>
+  </section>
+  
+  <section class="comments">
+    <h3>Comments</h3>
+    {{ partial "comments.html" . }}
+  </section>
+</article>
+{{ end }}

@@ -1,0 +1,19 @@
+{{ define "main" }}
+  {{ partial "hero.html" . }}
+  <div class="post-grid">
+    {{ $latest := first 1 (where .Site.RegularPages "Type" "posts") }}
+    {{ range where .Paginator.Pages "Permalink" "ne" (index $latest 0).Permalink }}
+      <article class="post-item">
+        <a href="{{ .RelPermalink }}">
+          {{ if .Params.featured_image }}
+          <img src="{{ .Params.featured_image }}" alt="{{ .Title }} featured image">
+          {{ end }}
+          <h2>{{ .Title }}</h2>
+        </a>
+        <p>{{ .Summary }}</p>
+      </article>
+    {{ end }}
+  </div>
+  <!-- Pagination -->
+  {{ template "_internal/pagination.html" . }}
+{{ end }}

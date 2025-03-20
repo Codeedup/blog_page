@@ -1,0 +1,26 @@
+baseURL = "https://myblog.com/"
+languageCode = "en-us"
+title = "Dylan's Blog"
+pagination.pagerSize = 6
+
+# Enable dark mode toggle (if you want to control via a parameter)
+[params]
+  darkMode = true
+  primaryFont = "Times New Roman"
+
+# SEO & Social
+[params.seo]
+  description = "A modern, grid-based blog using Hugo."
+  keywords = ["Hugo", "blog", "grid layout", "dark mode"]
+  # Social meta tags for Open Graph and Twitter
+  ogType = "website"
+  ogImage = "images/featured/default-og.jpg"
+
+# Taxonomies for categories
+[taxonomies]
+  category = "categories"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

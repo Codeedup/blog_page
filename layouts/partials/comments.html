@@ -1,0 +1,21 @@
+<form id="comment-form" action="https://staticman.net/your-username/your-repo/branch/comments" method="POST">
+    <input type="hidden" name="options[redirect]" value="{{ .Permalink }}#comments">
+    <input type="hidden" name="fields[postSlug]" value="{{ .File.Path }}">
+    
+    <label for="name">Name:</label>
+    <input type="text" name="fields[name]" id="name" required>
+  
+    <label for="comment">Comment:</label>
+    <textarea name="fields[comment]" id="comment" required></textarea>
+    
+    <!-- Honeypot field for spam protection -->
+    <input type="text" name="fields[website]" id="website" style="display:none">
+    
+    <button type="submit">Submit Comment</button>
+  </form>
+  
+  <div id="comments">
+    <!-- Comments will appear here once submitted -->
+    <!-- Disabled for now: {{ if .Site.Data.comments }}{{ end }} -->
+  </div>
+  

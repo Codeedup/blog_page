@@ -1,0 +1,11 @@
+{{ $latest := first 1 (where .Site.RegularPages "Type" "posts") }}
+{{ with index $latest 0 }}
+  <section class="hero">
+    <a href="{{ .RelPermalink }}">
+      {{ if .Params.featured_image }}
+      <img src="{{ .Params.featured_image }}" alt="{{ .Title }} featured image">
+      {{ end }}
+      <h1>{{ .Title }}</h1>
+    </a>
+  </section>
+{{ end }}

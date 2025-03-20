@@ -1,0 +1,21 @@
+{{/* SEO Meta Tags */}}
+<meta name="description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.seo.description }}{{ end }}">
+<meta name="keywords" content="{{ delimit (or .Params.keywords .Site.Params.seo.keywords) ", " }}">
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.seo.description }}{{ end }}">
+<meta property="og:type" content="{{ .Site.Params.seo.ogType }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ with .Params.featured_image }}{{ . }}{{ else }}{{ .Site.Params.seo.ogImage }}{{ end }}">
+{{/* JSON-LD Structured Data */}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ .Title }}",
+  "datePublished": "{{ .Date.Format "2006-01-02" }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Site.Title }}"
+  }
+}
+</script>

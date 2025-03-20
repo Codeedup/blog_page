@@ -1,0 +1,87 @@
+/* main.css */
+body {
+    font-family: "Times New Roman", Times, serif;
+    background-color: #fff;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body.dark-mode {
+    background-color: #121212;
+    color: #eee;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f8f8;
+  }
+  
+  header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  header nav ul li a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .hero {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+  
+  .hero img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .hero h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.5);
+    padding: 1rem;
+  }
+  
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+  
+  .post-item {
+    background: #f4f4f4;
+    padding: 1rem;
+    border-radius: 4px;
+  }
+  
+  .post-item img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .blog-post {
+    padding: 1rem;
+  }
+  
+  .blog-post header img {
+    width: 100%;
+    height: auto;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #f8f8f8;
+  }
+  
