@@ -24,3 +24,6 @@ pagination.pagerSize = 6
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+# Ignore certain logs during development
+ignoreLogs = ['error-remote-getjson']
