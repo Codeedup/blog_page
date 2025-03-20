@@ -1,7 +1,7 @@
 <section class="comments-section">
   <h3>Comments</h3>
   
-  <form id="comment-form" action="https://YOUR-VERCEL-APP.vercel.app/v3/entry/github/codeedup/blog_page/main/comments" method="post">
+  <form id="comment-form" action="https://staticman3.vercel.app/v3/entry/github/codeedup/blog_page/main/comments" method="post">
     <input type="hidden" name="options[redirect]" value="{{ .Permalink }}#comments">
     <input type="hidden" name="options[slug]" value="{{ .File.Path }}">
     <input type="hidden" name="fields[postSlug]" value="{{ .File.Path }}">
