@@ -1,64 +1,40 @@
-<section class="comments-section">
-  <h3>Comments</h3>
-  
-  <form id="comment-form" action="https://staticman3.vercel.app/v3/entry/github/codeedup/blog_page/main/comments" method="post">
-    <input type="hidden" name="options[redirect]" value="{{ .Permalink }}#comments">
-    <input type="hidden" name="options[slug]" value="{{ .File.Path }}">
-    <input type="hidden" name="fields[postSlug]" value="{{ .File.Path }}">
-    <input type="hidden" name="options[origin]" value="{{ .Site.BaseURL }}">
-    
-    <div class="form-group">
-      <label for="name">Name:</label>
-      <input type="text" name="fields[name]" id="name" required>
-    </div>
+{{ $postSlug := .File.BaseFileName }}
 
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" name="fields[email]" id="email" required>
-    </div>
+<!-- Comment Form -->
+<form class="comment-form" action="https://formspree.io/f/meoaewnp" method="POST">
+  <input type="hidden" name="post" value="{{ .Title }}">
+  <input type="hidden" name="post_url" value="{{ .Permalink }}">
   
-    <div class="form-group">
-      <label for="comment">Comment:</label>
-      <textarea name="fields[comment]" id="comment" required></textarea>
-    </div>
-    
-    <!-- Honeypot field for spam protection -->
-    <input type="text" name="fields[website]" id="website" style="display:none">
-    
-    <button type="submit" class="submit-button">Submit Comment</button>
-  </form>
-  
-  <div id="comments" class="comments-list">
-    {{ $comments := resources.GetRemote "https://api.github.com/repos/codeedup/blog_page/contents/data/comments/" }}
-    {{ with $comments }}
-      {{ $commentsData := . | transform.Unmarshal }}
-      {{ if $commentsData }}
-        {{ range $commentsData }}
-          <div class="comment">
-            <div class="comment-header">
-              <strong>{{ .name }}</strong>
-              <span class="comment-date">{{ .date | dateFormat "January 2, 2006" }}</span>
-            </div>
-            <div class="comment-content">
-              {{ .comment | markdownify }}
-            </div>
-          </div>
-        {{ end }}
-      {{ else }}
-        <p>No comments yet. Be the first to comment!</p>
-      {{ end }}
-    {{ else }}
-      <p>No comments yet. Be the first to comment!</p>
-    {{ end }}
+  <div class="form-group">
+    <label for="name">Name *</label>
+    <input type="text" name="name" id="name" required>
   </div>
-</section>
+  
+  <div class="form-group">
+    <label for="email">Email *</label>
+    <input type="email" name="email" id="email" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="comment">Comment *</label>
+    <textarea name="comment" id="comment" required></textarea>
+  </div>
+  
+  <button type="submit">Submit Comment</button>
+</form>
+
+<!-- Comments Display -->
+<div class="comments-list">
+  <p>Comments are moderated and will appear after approval.</p>
+</div>
 
 <style>
-.comments-section {
-  margin-top: 2rem;
+.comment-form {
+  max-width: 600px;
+  margin: 2rem 0;
   padding: 1rem;
-  background: #f8f8f8;
-  border-radius: 4px;
+  background: #f8f9fa;
+  border-radius: 8px;
 }
 
 .form-group {
@@ -81,10 +57,9 @@
 
 .form-group textarea {
   min-height: 100px;
-  resize: vertical;
 }
 
-.submit-button {
+button[type="submit"] {
   background: #007bff;
   color: white;
   padding: 0.5rem 1rem;
@@ -93,35 +68,14 @@
   cursor: pointer;
 }
 
-.submit-button:hover {
+button[type="submit"]:hover {
   background: #0056b3;
 }
 
 .comments-list {
   margin-top: 2rem;
-}
-
-.comment {
   padding: 1rem;
-  margin-bottom: 1rem;
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  background: #f8f9fa;
+  border-radius: 8px;
 }
-
-.comment-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-}
-
-.comment-date {
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.comment-content {
-  line-height: 1.5;
-}
-</style>
-  
+</style> 
